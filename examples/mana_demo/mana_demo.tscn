@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://dmt8ntmn8p8et"]
+
+[ext_resource type="Texture2D" uid="uid://c62e372a44wo7" path="res://examples/assets/TestRock.png" id="1_3iwot"]
+[ext_resource type="Script" uid="uid://bqb7mu1i0mv1i" path="res://examples/mana_demo/player.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://cscfrj4fts2k7" path="res://addons/indie_game_components/components/movement/EightDirMoverComponent.gd" id="2_mover"]
+[ext_resource type="Script" uid="uid://cxrl3o0btejkr" path="res://addons/indie_game_components/components/vitals/ManaComponent.gd" id="3_mana"]
+
+[sub_resource type="RectangleShape2D" id="PlayerShape"]
+size = Vector2(14, 14)
+
+[node name="ManaDemo" type="Node2D" unique_id=1482500288]
+
+[node name="Background" type="ColorRect" parent="." unique_id=1772426805]
+offset_left = -512.0
+offset_top = -512.0
+offset_right = 512.0
+offset_bottom = 512.0
+color = Color(0.08, 0.08, 0.14, 1)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=625570166]
+
+[node name="Controls" type="Label" parent="HUD" unique_id=1644889215]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 480.0
+offset_bottom = 32.0
+text = "Arrow Keys — Move, Enter — Cast Spell (20 mana), Escape - Refill Mana"
+
+[node name="ManaBarBG" type="ColorRect" parent="HUD" unique_id=1952034680]
+offset_left = 12.0
+offset_top = 40.0
+offset_right = 212.0
+offset_bottom = 60.0
+color = Color(0.05, 0.05, 0.2, 1)
+
+[node name="ManaBar" type="ProgressBar" parent="HUD" unique_id=1193923036]
+offset_left = 12.0
+offset_top = 40.0
+offset_right = 212.0
+offset_bottom = 60.0
+value = 100.0
+show_percentage = false
+
+[node name="ManaBarLabel" type="Label" parent="HUD" unique_id=620502129]
+offset_left = 16.0
+offset_top = 41.0
+offset_right = 208.0
+offset_bottom = 59.0
+text = "MANA"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusLabel" type="Label" parent="HUD" unique_id=1942918024]
+offset_left = 12.0
+offset_top = 64.0
+offset_right = 400.0
+offset_bottom = 84.0
+text = "Mana full!"
+
+[node name="CastLabel" type="Label" parent="HUD" unique_id=1926928904]
+visible = false
+offset_left = 12.0
+offset_top = 88.0
+offset_right = 400.0
+offset_bottom = 108.0
+
+[node name="RegenTip" type="Label" parent="HUD" unique_id=440145594]
+modulate = Color(0.6, 0.6, 0.8, 1)
+offset_left = 12.0
+offset_top = 112.0
+offset_right = 480.0
+offset_bottom = 132.0
+text = "Mana regenerates 5/sec after a 2s delay since last cast."
+
+[node name="TestRock" type="Sprite2D" parent="HUD" unique_id=210709899]
+position = Vector2(248, 80)
+texture = ExtResource("1_3iwot")
+
+[node name="TestRock2" type="Sprite2D" parent="HUD" unique_id=17834416]
+position = Vector2(64, 160)
+texture = ExtResource("1_3iwot")
+
+[node name="TestRock3" type="Sprite2D" parent="HUD" unique_id=2095067413]
+position = Vector2(200, 120)
+texture = ExtResource("1_3iwot")
+
+[node name="Spells" type="Node2D" parent="." unique_id=705052149]
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=58184539]
+position = Vector2(96, 72)
+script = ExtResource("1_player")
+
+[node name="Visual" type="ColorRect" parent="Player" unique_id=1130132798]
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
+color = Color(0.2, 0.6, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1692730863]
+shape = SubResource("PlayerShape")
+
+[node name="EightDirMoverComponent" type="Node" parent="Player" unique_id=1663520159]
+script = ExtResource("2_mover")
+metadata/_custom_type_script = "uid://cscfrj4fts2k7"
+
+[node name="ManaComponent" type="Node" parent="Player" unique_id=772428773]
+script = ExtResource("3_mana")
+metadata/_custom_type_script = "uid://cxrl3o0btejkr"

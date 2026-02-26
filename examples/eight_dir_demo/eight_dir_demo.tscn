@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://ci1cyr8lmrvqx"]
+
+[ext_resource type="Script" uid="uid://dmlytcx3nb4or" path="res://examples/eight_dir_demo/player.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://cscfrj4fts2k7" path="res://addons/indie_game_components/components/movement/EightDirMoverComponent.gd" id="2_eightdir"]
+[ext_resource type="Script" path="res://addons/indie_game_components/components/movement/EightDirFollowerComponent.gd" id="3_follower_comp"]
+
+[sub_resource type="RectangleShape2D" id="WallH"]
+size = Vector2(160, 16)
+
+[sub_resource type="RectangleShape2D" id="WallV"]
+size = Vector2(16, 160)
+
+[sub_resource type="RectangleShape2D" id="PillarShape"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="PlayerShape"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="FollowerShape"]
+size = Vector2(14, 14)
+
+[node name="EightDirDemo" type="Node2D" unique_id=1251756524]
+
+[node name="Background" type="ColorRect" parent="." unique_id=706494551]
+offset_left = -512.0
+offset_top = -512.0
+offset_right = 512.0
+offset_bottom = 512.0
+color = Color(0.1, 0.11, 0.15, 1)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1308954739]
+
+[node name="Controls" type="Label" parent="HUD" unique_id=278185865]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 350.0
+offset_bottom = 50.0
+text = "Arrow Keys / WASD — Move in 8 directions"
+
+[node name="FacingPanel" type="PanelContainer" parent="HUD" unique_id=285843001]
+offset_left = 12.0
+offset_top = 56.0
+offset_right = 160.0
+offset_bottom = 90.0
+
+[node name="FacingInfo" type="Label" parent="HUD/FacingPanel" unique_id=626519906]
+layout_mode = 2
+text = "Facing: —"
+
+[node name="Room" type="Node2D" parent="." unique_id=247437290]
+
+[node name="WallTop" type="StaticBody2D" parent="Room" unique_id=14720317]
+position = Vector2(0, -120)
+
+[node name="Sprite" type="ColorRect" parent="Room/WallTop" unique_id=599893568]
+offset_left = -80.0
+offset_top = -8.0
+offset_right = 80.0
+offset_bottom = 8.0
+color = Color(0.3, 0.32, 0.4, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room/WallTop" unique_id=1618195865]
+shape = SubResource("WallH")
+
+[node name="WallBottom" type="StaticBody2D" parent="Room" unique_id=124063740]
+position = Vector2(0, 120)
+
+[node name="Sprite" type="ColorRect" parent="Room/WallBottom" unique_id=1612547250]
+offset_left = -80.0
+offset_top = -8.0
+offset_right = 80.0
+offset_bottom = 8.0
+color = Color(0.3, 0.32, 0.4, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room/WallBottom" unique_id=375033082]
+shape = SubResource("WallH")
+
+[node name="WallLeft" type="StaticBody2D" parent="Room" unique_id=1113840379]
+position = Vector2(-120, 0)
+
+[node name="Sprite" type="ColorRect" parent="Room/WallLeft" unique_id=1006290726]
+offset_left = -8.0
+offset_top = -80.0
+offset_right = 8.0
+offset_bottom = 80.0
+color = Color(0.3, 0.32, 0.4, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room/WallLeft" unique_id=1276096840]
+shape = SubResource("WallV")
+
+[node name="WallRight" type="StaticBody2D" parent="Room" unique_id=393324453]
+position = Vector2(120, 0)
+
+[node name="Sprite" type="ColorRect" parent="Room/WallRight" unique_id=411936330]
+offset_left = -8.0
+offset_top = -80.0
+offset_right = 8.0
+offset_bottom = 80.0
+color = Color(0.3, 0.32, 0.4, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room/WallRight" unique_id=1769168237]
+shape = SubResource("WallV")
+
+[node name="PillarNW" type="StaticBody2D" parent="Room" unique_id=1076346571]
+position = Vector2(-60, -50)
+
+[node name="Sprite" type="ColorRect" parent="Room/PillarNW" unique_id=305039198]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.25, 0.27, 0.36, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room/PillarNW" unique_id=1366558943]
+shape = SubResource("PillarShape")
+
+[node name="PillarSE" type="StaticBody2D" parent="Room" unique_id=1226305207]
+position = Vector2(60, 50)
+
+[node name="Sprite" type="ColorRect" parent="Room/PillarSE" unique_id=1022400071]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0.25, 0.27, 0.36, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Room/PillarSE" unique_id=1806628294]
+shape = SubResource("PillarShape")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=564673928]
+script = ExtResource("1_player")
+
+[node name="Visual" type="ColorRect" parent="Player" unique_id=818703629]
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
+color = Color(0.2, 0.6, 1, 1)
+
+[node name="FacingLabel" type="Label" parent="Player" unique_id=1987706043]
+offset_left = -40.0
+offset_top = -26.0
+offset_right = 40.0
+offset_bottom = -12.0
+text = "↓  South"
+horizontal_alignment = 1
+
+[node name="EightDirMoverComponent" type="Node" parent="Player" unique_id=1765679612]
+script = ExtResource("2_eightdir")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1286029088]
+shape = SubResource("PlayerShape")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1744482858]
+
+[node name="Follower" type="CharacterBody2D" parent="." unique_id=392847561]
+position = Vector2(0, 24)
+
+[node name="Visual" type="ColorRect" parent="Follower" unique_id=847392014]
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
+color = Color(1.0, 0.55, 0.1, 1)
+
+[node name="EightDirFollowerComponent" type="Node" parent="Follower" unique_id=193847562 node_paths=PackedStringArray("leader")]
+script = ExtResource("3_follower_comp")
+leader = NodePath("../../Player")
+speed = 90.0
+separation = 24.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Follower" unique_id=748291034]
+shape = SubResource("FollowerShape")
