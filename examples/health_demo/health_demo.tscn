@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://c0p4upf2figs2"]
+
+[ext_resource type="Script" uid="uid://dlel6r78fypbi" path="res://examples/health_demo/player.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://cscfrj4fts2k7" path="res://addons/indie_game_components/components/movement/EightDirMoverComponent.gd" id="2_mover"]
+[ext_resource type="Script" uid="uid://dlr01m10dg8xd" path="res://addons/indie_game_components/components/health/HealthComponent.gd" id="3_health"]
+[ext_resource type="Script" uid="uid://bmjrxmsn8kccc" path="res://examples/health_demo/hazard_zone.gd" id="4_hazard"]
+
+[sub_resource type="RectangleShape2D" id="HazardShapeA"]
+size = Vector2(64, 64)
+
+[sub_resource type="RectangleShape2D" id="HazardShapeB"]
+size = Vector2(48, 80)
+
+[sub_resource type="RectangleShape2D" id="PlayerShape"]
+size = Vector2(14, 14)
+
+[node name="HealthDemo" type="Node2D" unique_id=767950365]
+
+[node name="Background" type="ColorRect" parent="." unique_id=1223341352]
+offset_left = -512.0
+offset_top = -512.0
+offset_right = 512.0
+offset_bottom = 512.0
+color = Color(0.1, 0.11, 0.15, 1)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1836866019]
+
+[node name="Controls" type="Label" parent="HUD" unique_id=1615168218]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 420.0
+offset_bottom = 32.0
+text = "Move: Arrow Keys   Heal: Enter (+20 HP)   Respawn: Escape"
+
+[node name="HealthBarBG" type="ColorRect" parent="HUD" unique_id=1619428302]
+offset_left = 12.0
+offset_top = 40.0
+offset_right = 212.0
+offset_bottom = 60.0
+color = Color(0.2, 0.05, 0.05, 1)
+
+[node name="HealthBar" type="ProgressBar" parent="HUD" unique_id=649503628]
+offset_left = 12.0
+offset_top = 40.0
+offset_right = 212.0
+offset_bottom = 60.0
+value = 100.0
+show_percentage = false
+
+[node name="StatusLabel" type="Label" parent="HUD" unique_id=260042342]
+offset_left = 12.0
+offset_top = 64.0
+offset_right = 300.0
+offset_bottom = 84.0
+text = "HP: 100 / 100"
+
+[node name="HazardLegend" type="Label" parent="HUD" unique_id=1157687481]
+offset_left = 12.0
+offset_top = 88.0
+offset_right = 350.0
+offset_bottom = 108.0
+text = "⚠  Red zones deal 10 damage every 0.8 s"
+
+[node name="Hazards" type="Node2D" parent="." unique_id=1612491282]
+
+[node name="HazardA" type="Area2D" parent="Hazards" unique_id=1811890236]
+position = Vector2(-80, -60)
+script = ExtResource("4_hazard")
+
+[node name="Visual" type="ColorRect" parent="Hazards/HazardA" unique_id=164978917]
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+color = Color(0.8, 0.1, 0.1, 0.45)
+
+[node name="Label" type="Label" parent="Hazards/HazardA" unique_id=1655888785]
+offset_left = -30.0
+offset_top = -10.0
+offset_right = 30.0
+offset_bottom = 10.0
+text = "DANGER"
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazards/HazardA" unique_id=134350689]
+shape = SubResource("HazardShapeA")
+
+[node name="HazardB" type="Area2D" parent="Hazards" unique_id=1862293522]
+position = Vector2(90, 50)
+script = ExtResource("4_hazard")
+damage_per_tick = 20
+tick_interval = 0.5
+
+[node name="Visual" type="ColorRect" parent="Hazards/HazardB" unique_id=983895246]
+offset_left = -24.0
+offset_top = -40.0
+offset_right = 24.0
+offset_bottom = 40.0
+color = Color(1, 0.2, 0, 0.55)
+
+[node name="Label" type="Label" parent="Hazards/HazardB" unique_id=806127032]
+offset_left = -24.0
+offset_top = -10.0
+offset_right = 24.0
+offset_bottom = 10.0
+text = "HOT!"
+horizontal_alignment = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hazards/HazardB" unique_id=669740908]
+shape = SubResource("HazardShapeB")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=841413769]
+script = ExtResource("1_player")
+
+[node name="Visual" type="ColorRect" parent="Player" unique_id=647436037]
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
+color = Color(0.2, 0.6, 1, 1)
+
+[node name="EightDirMoverComponent" type="Node" parent="Player" unique_id=449874292]
+script = ExtResource("2_mover")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=2081857924]
+shape = SubResource("PlayerShape")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=253690090]
+
+[node name="HealthComponent" type="Node" parent="Player" unique_id=959556296]
+script = ExtResource("3_health")
+metadata/_custom_type_script = "uid://dlr01m10dg8xd"
