@@ -14,6 +14,9 @@ signal direction_changed(new_direction: Vector2)
 ## or keep at 0.0 for instant stop like the original Zelda GBC games).
 @export_range(0.0, 1.0) var friction: float = 0.0
 
+## Toggle movement on/off.
+@export var enabled: bool = true
+
 ## Read-only: the last non-zero direction the character was facing.
 ## Use this to drive your AnimationTree or Sprite2D flip.
 var facing: Vector2 = Vector2.DOWN
@@ -30,10 +33,12 @@ func _ready() -> void:
 			"EightDirMoverComponent must be a child of a CharacterBody2D. " +
 			"Parent is: %s" % get_parent().get_class()
 		)
+	else:
+		print("[EightDirMoverComponent] Ready and attached to: ", _parent.name)
 
 
 func _physics_process(_delta: float) -> void:
-	if _parent == null:
+	if _parent == null or not enabled:
 		return
 
 	_input_dir = _get_input()
@@ -58,6 +63,13 @@ func _physics_process(_delta: float) -> void:
 ## (e.g. AI steering, joystick, network input).
 func _get_input() -> Vector2:
 	var dir := Vector2.ZERO
+	# Support both UI actions (arrows) and common WASD
 	dir.x = Input.get_axis("ui_left", "ui_right")
+	if dir.x == 0:
+		dir.x = float(Input.is_key_pressed(KEY_D)) - float(Input.is_key_pressed(KEY_A))
+	
 	dir.y = Input.get_axis("ui_up", "ui_down")
+	if dir.y == 0:
+		dir.y = float(Input.is_key_pressed(KEY_S)) - float(Input.is_key_pressed(KEY_W))
+		
 	return dir

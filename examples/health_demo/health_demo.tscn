@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dlel6r78fypbi" path="res://examples/health_demo/player.gd" id="1_player"]
 [ext_resource type="Script" uid="uid://cscfrj4fts2k7" path="res://addons/indie_game_components/components/movement/EightDirMoverComponent.gd" id="2_mover"]
-[ext_resource type="Script" uid="uid://dlr01m10dg8xd" path="res://addons/indie_game_components/components/health/HealthComponent.gd" id="3_health"]
 [ext_resource type="Script" uid="uid://bmjrxmsn8kccc" path="res://examples/health_demo/hazard_zone.gd" id="4_hazard"]
+[ext_resource type="Script" uid="uid://ddamoiosghvfv" path="res://addons/indie_game_components/components/vitals/HealthComponent.gd" id="4_xdl67"]
 
 [sub_resource type="RectangleShape2D" id="HazardShapeA"]
 size = Vector2(64, 64)
@@ -119,14 +119,15 @@ offset_right = 7.0
 offset_bottom = 7.0
 color = Color(0.2, 0.6, 1, 1)
 
-[node name="EightDirMoverComponent" type="Node" parent="Player" unique_id=449874292]
-script = ExtResource("2_mover")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=2081857924]
 shape = SubResource("PlayerShape")
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=253690090]
 
-[node name="HealthComponent" type="Node" parent="Player" unique_id=959556296]
-script = ExtResource("3_health")
-metadata/_custom_type_script = "uid://dlr01m10dg8xd"
+[node name="HealthComponent" type="Node" parent="Player" unique_id=1081321131]
+script = ExtResource("4_xdl67")
+metadata/_custom_type_script = "uid://ddamoiosghvfv"
+
+[node name="EightDirMoverComponent" type="Node" parent="Player" unique_id=1715732305]
+script = ExtResource("2_mover")
+metadata/_custom_type_script = "uid://cscfrj4fts2k7"
