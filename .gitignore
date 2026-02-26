@@ -1,0 +1,28 @@
+# Godot-specific .gitignore
+
+# Godot-specific ignores
+.godot/
+.import/
+export_presets.cfg
+
+# Mono-specific ignores
+.mono/
+*.sln
+*.csproj
+*.pdb
+*.obj
+
+# User-specific ignores
+.fscache/
+*.uid
+
+# macOS-specific ignores
+.DS_Store
+
+# Mobile-specific ignores (if any)
+android/
+ios/
+
+# Built-in editor backups
+*.backup
+*.tmp
