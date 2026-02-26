@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://dtdwv1nss3xww"]
+
+[ext_resource type="Script" uid="uid://d2t7nnavb2wnl" path="res://examples/grid_demo/player.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://ds1gb2fvjkfmw" path="res://examples/grid_demo/follower.gd" id="2_follower"]
+[ext_resource type="Script" uid="uid://7saybqldkj0m" path="res://addons/indie_game_components/components/movement/GridMoverComponent.gd" id="3_mover"]
+[ext_resource type="Script" uid="uid://bar8d2gdsa8ot" path="res://addons/indie_game_components/components/movement/GridFollowerComponent.gd" id="4_follower_comp"]
+
+[sub_resource type="RectangleShape2D" id="PlayerShape"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="FollowerShape"]
+size = Vector2(16, 16)
+
+[node name="GridDemo" type="Node2D" unique_id=873423552]
+
+[node name="Background" type="ColorRect" parent="." unique_id=1764837218]
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+color = Color(0.12, 0.12, 0.18, 1)
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=472825102]
+
+[node name="Instructions" type="Label" parent="HUD" unique_id=185446495]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 400.0
+offset_bottom = 80.0
+text = "Arrow Keys — move the Player (blue)
+The Party Member (red) follows your exact path!"
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=838675739]
+position = Vector2(160, 160)
+script = ExtResource("1_player")
+
+[node name="Visual" type="ColorRect" parent="Player" unique_id=1341153467]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0.2, 0.5, 1, 1)
+
+[node name="GridMoverComponent" type="Node2D" parent="Player" unique_id=464827554]
+script = ExtResource("3_mover")
+grid_size = 16
+move_speed = 0.15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1619794869]
+shape = SubResource("PlayerShape")
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=333177213]
+
+[node name="Follower" type="CharacterBody2D" parent="." unique_id=1840216455]
+position = Vector2(160, 176)
+script = ExtResource("2_follower")
+
+[node name="Visual" type="ColorRect" parent="Follower" unique_id=1063639218]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(1, 0.25, 0.25, 1)
+
+[node name="GridFollowerComponent" type="Node2D" parent="Follower" unique_id=677530791 node_paths=PackedStringArray("leader")]
+script = ExtResource("4_follower_comp")
+leader = NodePath("../../Player")
+move_speed = 0.15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Follower" unique_id=1904213444]
+shape = SubResource("FollowerShape")

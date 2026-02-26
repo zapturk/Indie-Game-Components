@@ -12,7 +12,6 @@ config_version=5
 
 config/name="Indie Game Components"
 config/description="A collection of high-quality, reusable components for Godot 4.6."
-run/main_scene="uid://ctt0ydttk3nl7"
 config/features=PackedStringArray("4.6")
 config/icon="res://icon.png"
 
@@ -30,5 +29,6 @@ enabled=PackedStringArray("res://addons/indie_game_components/plugin.cfg")
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 textures/decals/filter=0
 textures/light_projectors/filter=0
